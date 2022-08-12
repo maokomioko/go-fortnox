@@ -29,8 +29,8 @@ type Invoice struct {
 	Country                   string            `json:"Country"`                          // Country for the invoice address. Must be a name of an existing country.
 	CostCenter                string            `json:"CostCenter,omitempty"`             // Code of the cost center. The code must be of an existing cost center.
 	Currency                  string            `json:"Currency"`                         // Code of the currency. The code must be of an existing currency.
-	CurrencyRate              Number            `json:"CurrencyRate"`                     // Currency rate used for the invoice.
-	CurrencyUnit              float64           `json:"CurrencyUnit"`                     // Currency unit used for the invoice.
+	CurrencyRate              Number            `json:"CurrencyRate,omitempty"`           // Currency rate used for the invoice.
+	CurrencyUnit              float64           `json:"CurrencyUnit,omitempty"`           // Currency unit used for the invoice.
 	CustomerName              string            `json:"CustomerName"`                     // Name of the customer.
 	CustomerNumber            string            `json:"CustomerNumber"`                   // Customer number of the customer. The customer number must be of an existing customer.
 	DeliveryAddress1          string            `json:"DeliveryAddress1"`                 // Invoice delivery address 1.
@@ -77,15 +77,17 @@ type Invoice struct {
 	Project                   string            `json:"Project"`                      // Code of the project. The code must be of an existing project.
 	WarehouseReady            null.Bool         `json:"WarehouseReady,omitempty"`
 	OutboundDate              Date              `json:"OutboundDate"`
-	Remarks                   string            `json:"Remarks"`                // Remarks of the invoice. This is the invoice text shown on the invoice.
-	Reminders                 int               `json:"Reminders,omitempty"`    // Number of reminders sent to the customer.
-	RoundOff                  float64           `json:"RoundOff,omitempty"`     // Round off amount for the invoice.
-	Sent                      null.Bool         `json:"Sent,omitempty"`         // If the document is printed or sent in any way.
-	TaxReduction              int               `json:"TaxReduction,omitempty"` // The amount of tax reduction.
-	TermsOfDelivery           string            `json:"TermsOfDelivery"`        // Code of the terms of delivery. The code must be of an existing terms of delivery.
-	TermsOfPayment            int               `json:"TermsOfPayment"`         // Code of the terms of payment. The code must be of an existing terms of payment.
-	Total                     float64           `json:"Total,omitempty"`        // The total amount of the invoice.
-	TotalVAT                  float64           `json:"TotalVAT,omitempty"`     // The total VAT amount of the invoice.
+	Remarks                   string            `json:"Remarks"`                      // Remarks of the invoice. This is the invoice text shown on the invoice.
+	Reminders                 int               `json:"Reminders,omitempty"`          // Number of reminders sent to the customer.
+	RoundOff                  float64           `json:"RoundOff,omitempty"`           // Round off amount for the invoice.
+	Sent                      null.Bool         `json:"Sent,omitempty"`               // If the document is printed or sent in any way.
+	TaxReduction              int               `json:"TaxReduction,omitempty"`       // The amount of tax reduction.
+	TaxReductionType          string            `json:"TaxReductionType,omitempty"`   // The type of tax reduction. ROT, RUT, GREEN, NONE.
+	TermsOfDelivery           string            `json:"TermsOfDelivery"`              // Code of the terms of delivery. The code must be of an existing terms of delivery.
+	TermsOfPayment            int               `json:"TermsOfPayment"`               // Code of the terms of payment. The code must be of an existing terms of payment.
+	TimeBasisReference        int               `json:"TimeBasisReference,omitempty"` // Reference to the time basis, if one exists.
+	Total                     float64           `json:"Total,omitempty"`              // The total amount of the invoice.
+	TotalVAT                  float64           `json:"TotalVAT,omitempty"`           // The total VAT amount of the invoice.
 	TotalToPay                int               `json:"TotalToPay,omitempty"`
 	VATIncluded               bool              `json:"VATIncluded"`             // If the price of the invoice is including VAT.
 	VoucherNumber             int               `json:"VoucherNumber,omitempty"` // Voucher number for the invoice. This is created when the invoice is bookkept.
@@ -132,6 +134,7 @@ type EmailInformation struct {
 type InvoiceRows []InvoiceRow
 
 type InvoiceRow struct {
+	RowId               int     `json:"RowId,omitempty"`               // Row ID from Fortnox response
 	AccountNumber       int     `json:"AccountNumber"`                 // Account number. If not provided the predefined account will be used.
 	ArticleNumber       string  `json:"ArticleNumber"`                 // Article number.
 	ContributionPercent string  `json:"ContributionPercent,omitempty"` // Contribution Percent.
