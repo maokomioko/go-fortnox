@@ -276,10 +276,6 @@ func (c *Client) Do(req *http.Request, responseBody interface{}) (*http.Response
 		return httpResp, err
 	}
 
-	// if len(errorResponse.Messages) > 0 {
-	// 	return httpResp, errorResponse
-	// }
-
 	return httpResp, nil
 }
 
@@ -293,16 +289,16 @@ func (c *Client) RegisterRequestTimestamp(t time.Time) {
 }
 
 func (c *Client) SleepUntilRequestRate() {
-	// Requestrate is 4r/1s
+	// Request rate is 4r/1s
 
-	// if there are less then 4 registered requests: execute the request
+	// if there are less than 4 registered requests: execute the request
 	// immediately
 	if len(*requestTimestamps[c.accessToken]) < (requestsPerSecond - 1) {
 		return
 	}
 
 	// is the first item within 1 second? If it's > 1 second the request can be
-	// executed imediately
+	// executed immediately
 	diff := time.Now().Sub((*requestTimestamps[c.accessToken])[0])
 	if diff >= time.Second {
 		return
@@ -342,7 +338,7 @@ func (c *Client) Unmarshal(r io.Reader, vv ...interface{}) error {
 			wg.Done()
 
 			// Drain reader
-			io.Copy(ioutil.Discard, pr)
+			io.Copy(io.Discard, pr)
 
 			// close reader
 			// pr.CloseWithError(err)

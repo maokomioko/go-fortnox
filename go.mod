@@ -1,15 +1,18 @@
 module github.com/omniboost/go-fortnox
 
 require (
-	github.com/golang/protobuf v1.5.2 // indirect
-	github.com/gorilla/schema v0.0.0-20171211162101-9fa3b6af65dc
-	golang.org/x/net v0.0.0-20220418201149-a630d4f3e7a2 // indirect
-	golang.org/x/oauth2 v0.0.0-20220411215720-9780585627b5
-	google.golang.org/appengine v1.6.7 // indirect
-	google.golang.org/protobuf v1.28.0 // indirect
-	gopkg.in/guregu/null.v3 v3.4.0
+	github.com/gorilla/schema v1.2.0
+	golang.org/x/oauth2 v0.0.0-20220808172628-8227340efae7
+	gopkg.in/guregu/null.v3 v3.5.0
 )
 
-go 1.18
+require (
+	github.com/golang/protobuf v1.5.2 // indirect
+	golang.org/x/net v0.0.0-20220624214902-1bab6f366d9e // indirect
+	google.golang.org/appengine v1.6.7 // indirect
+	google.golang.org/protobuf v1.28.0 // indirect
+)
+
+go 1.19
 
 replace github.com/gorilla/schema => github.com/omniboost/schema v1.1.1-0.20191030093734-a170fe1a7240

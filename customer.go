@@ -100,7 +100,7 @@ var (
 	CustomerTypeCompany CustomerType = "COMPANY"
 )
 
-// VAT type of the customer. Can be SEVAT SEREVERSEDVAT EUREVERSEDVAT EUVAT or EXPORT.
+// VATType of the customer. Can be SEVAT SEREVERSEDVAT EUREVERSEDVAT EUVAT or EXPORT.
 type VATType string
 
 var (
