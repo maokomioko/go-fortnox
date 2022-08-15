@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"strings"
 
-	null "gopkg.in/guregu/null.v3"
+	"gopkg.in/guregu/null.v3"
 
 	"github.com/gorilla/schema"
 )

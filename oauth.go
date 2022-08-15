@@ -4,8 +4,6 @@ import (
 	"golang.org/x/oauth2"
 )
 
-const ()
-
 type Oauth2Config struct {
 	oauth2.Config
 }
