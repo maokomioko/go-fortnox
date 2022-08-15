@@ -12,12 +12,15 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"net/url"
+	"strconv"
 	"strings"
 	"sync"
 	"text/template"
 	"time"
 
 	"github.com/omniboost/go-fortnox/utils"
+	"golang.org/x/oauth2"
+	"golang.org/x/sync/singleflight"
 )
 
 const (
@@ -36,6 +39,72 @@ var (
 	requestTimestamps = make(map[string]*timestamps)
 	requestsPerSecond = 4
 )
+
+type Config struct {
+	Token   string
+	Refresh string
+	Debug   bool
+}
+
+func InitFortnox(
+	ctx context.Context,
+	cfg *Config, oauthConfig *Oauth2Config,
+	ts TokenStorage, singleCacheGroup *singleflight.Group) (*Client, error) {
+
+	existingToken := &oauth2.Token{}
+
+	tokenJSON, err := ts.GetToken(ctx)
+	if err != nil && err == ErrNoTokenInTokenStorage {
+		existingToken = &oauth2.Token{
+			AccessToken:  cfg.Token,
+			RefreshToken: cfg.Refresh,
+		}
+	} else {
+		if err = json.Unmarshal([]byte(tokenJSON), &existingToken); err != nil {
+			return nil, fmt.Errorf("%s: error unmarshalling token", err)
+		}
+	}
+
+	tokenSource := oauthConfig.TokenSource(context.Background(), existingToken)
+
+	if existingToken.Expiry.Before(time.Now().UTC()) {
+		// Use cache to prevent multiple concurrent token refreshes
+		key := "fx_token" + strconv.FormatInt(existingToken.Expiry.Unix(), 10)
+		_, err, _ := singleCacheGroup.Do(key, func() (interface{}, error) {
+			newToken, err := tokenSource.Token() /// Re-read token from TokenSource to trigger a refresh if it's expired
+			if err != nil {
+				return nil, fmt.Errorf("%s, fortnox: error renewing token", err)
+			}
+
+			if newToken != nil && newToken.AccessToken != existingToken.AccessToken {
+				existingToken = newToken
+				p, err := json.Marshal(newToken)
+				if err != nil {
+					return nil, err
+				}
+
+				if err = ts.SetToken(ctx, p); err != nil {
+					return nil, fmt.Errorf("fortnox: token update error: %s", err)
+				}
+			}
+
+			return nil, nil
+		})
+		if err != nil {
+			return nil, err
+		}
+
+	}
+
+	// get http fxClient with automatic oauth logic
+	httpClient := oauth2.NewClient(context.Background(), tokenSource)
+
+	fxClient := NewClient(httpClient)
+	fxClient.SetDisallowUnknownFields(true)
+	fxClient.SetDebug(cfg.Debug)
+
+	return fxClient, nil
+}
 
 // NewClient returns a new Exact Globe Client client
 func NewClient(httpClient *http.Client) *Client {
