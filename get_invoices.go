@@ -1,6 +1,7 @@
 package fortnox
 
 import (
+	"fmt"
 	"net/http"
 	"net/url"
 
@@ -30,12 +31,13 @@ type GetInvoicesRequest struct {
 }
 
 func (r GetInvoicesRequest) NewGetInvoicesQueryParams() *GetInvoicesQueryParams {
-	return &GetInvoicesQueryParams{
-		// Pagination: odata.NewPagination(),
-	}
+	return &GetInvoicesQueryParams{}
 }
 
 type GetInvoicesQueryParams struct {
+	//Page   *Page
+	//Limit  *Limit
+	//Offset *Offset
 }
 
 func (p GetInvoicesQueryParams) ToURLValues() (url.Values, error) {
@@ -47,6 +49,7 @@ func (p GetInvoicesQueryParams) ToURLValues() (url.Values, error) {
 		return params, err
 	}
 
+	fmt.Println(params)
 	return params, nil
 }
 

@@ -30,9 +30,7 @@ type PutInvoiceRequest struct {
 }
 
 func (r PutInvoiceRequest) NewPutInvoiceQueryParams() *PutInvoiceQueryParams {
-	return &PutInvoiceQueryParams{
-		// Pagination: odata.NewPagination(),
-	}
+	return &PutInvoiceQueryParams{}
 }
 
 type PutInvoiceQueryParams struct {

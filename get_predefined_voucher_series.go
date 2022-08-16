@@ -30,12 +30,13 @@ type GetPredefinedVoucherSeriesRequest struct {
 }
 
 func (r GetPredefinedVoucherSeriesRequest) NewGetPredefinedVoucherSeriesQueryParams() *GetPredefinedVoucherSeriesQueryParams {
-	return &GetPredefinedVoucherSeriesQueryParams{
-		// Pagination: odata.NewPagination(),
-	}
+	return &GetPredefinedVoucherSeriesQueryParams{}
 }
 
 type GetPredefinedVoucherSeriesQueryParams struct {
+	//Page   *Page
+	//Limit  *Limit
+	//Offset *Offset
 }
 
 func (p GetPredefinedVoucherSeriesQueryParams) ToURLValues() (url.Values, error) {

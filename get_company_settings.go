@@ -30,9 +30,7 @@ type GetCompanySettingsRequest struct {
 }
 
 func (r GetCompanySettingsRequest) NewGetCompanySettingsQueryParams() *GetCompanySettingsQueryParams {
-	return &GetCompanySettingsQueryParams{
-		// Pagination: odata.NewPagination(),
-	}
+	return &GetCompanySettingsQueryParams{}
 }
 
 type GetCompanySettingsQueryParams struct {

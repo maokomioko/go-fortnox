@@ -30,9 +30,7 @@ type PostCustomerRequest struct {
 }
 
 func (r PostCustomerRequest) NewPostCustomerQueryParams() *PostCustomerQueryParams {
-	return &PostCustomerQueryParams{
-		// Pagination: odata.NewPagination(),
-	}
+	return &PostCustomerQueryParams{}
 }
 
 type PostCustomerQueryParams struct {

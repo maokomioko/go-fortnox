@@ -30,12 +30,13 @@ type GetAccountsRequest struct {
 }
 
 func (r GetAccountsRequest) NewGetAccountsQueryParams() *GetAccountsQueryParams {
-	return &GetAccountsQueryParams{
-		// Pagination: odata.NewPagination(),
-	}
+	return &GetAccountsQueryParams{}
 }
 
 type GetAccountsQueryParams struct {
+	//Page   *Page
+	//Limit  *Limit
+	//Offset *Offset
 }
 
 func (p GetAccountsQueryParams) ToURLValues() (url.Values, error) {

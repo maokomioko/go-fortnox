@@ -30,9 +30,7 @@ type PutCustomerRequest struct {
 }
 
 func (r PutCustomerRequest) NewPutCustomerQueryParams() *PutCustomerQueryParams {
-	return &PutCustomerQueryParams{
-		// Pagination: odata.NewPagination(),
-	}
+	return &PutCustomerQueryParams{}
 }
 
 type PutCustomerQueryParams struct {

@@ -30,12 +30,14 @@ type GetCustomerRequest struct {
 }
 
 func (r GetCustomerRequest) NewGetCustomerQueryParams() *GetCustomerQueryParams {
-	return &GetCustomerQueryParams{
-		// Pagination: odata.NewPagination(),
-	}
+	return &GetCustomerQueryParams{}
 }
 
-type GetCustomerQueryParams struct{}
+type GetCustomerQueryParams struct {
+	//Page   *Page
+	//Limit  *Limit
+	//Offset *Offset
+}
 
 func (p GetCustomerQueryParams) ToURLValues() (url.Values, error) {
 	encoder := utils.NewSchemaEncoder()
