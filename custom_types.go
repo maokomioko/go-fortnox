@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-// StringIsh exists because fnox send back integers unquoted even if underlying type is string
+// StringIsh exists because Fortnox sends back integers unquoted even if underlying type is string
 type StringIsh string
 
 func (f *StringIsh) UnmarshalJSON(data []byte) error {
