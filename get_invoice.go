@@ -30,12 +30,14 @@ type GetInvoiceRequest struct {
 }
 
 func (r GetInvoiceRequest) NewGetInvoiceQueryParams() *GetInvoiceQueryParams {
-	return &GetInvoiceQueryParams{
-		// Pagination: odata.NewPagination(),
-	}
+	return &GetInvoiceQueryParams{}
 }
 
-type GetInvoiceQueryParams struct{}
+type GetInvoiceQueryParams struct {
+	//Page   *Page
+	//Limit  *Limit
+	//Offset *Offset
+}
 
 func (p GetInvoiceQueryParams) ToURLValues() (url.Values, error) {
 	encoder := utils.NewSchemaEncoder()
@@ -98,7 +100,7 @@ func (r *GetInvoiceRequest) NewResponseBody() *GetInvoiceResponseBody {
 }
 
 type GetInvoiceResponseBody struct {
-	MetaInformation `json:"MetaInformation"` // TODO: do we really get this?
+	MetaInformation `json:"MetaInformation"`
 	Invoice         Invoice
 }
 

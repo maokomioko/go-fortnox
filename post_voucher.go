@@ -30,9 +30,7 @@ type PostVoucherRequest struct {
 }
 
 func (r PostVoucherRequest) NewPostVoucherQueryParams() *PostVoucherQueryParams {
-	return &PostVoucherQueryParams{
-		// Pagination: odata.NewPagination(),
-	}
+	return &PostVoucherQueryParams{}
 }
 
 type PostVoucherQueryParams struct {

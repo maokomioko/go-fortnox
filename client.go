@@ -46,11 +46,7 @@ type Config struct {
 	Debug   bool
 }
 
-func InitFortnox(
-	ctx context.Context,
-	cfg *Config, oauthConfig *Oauth2Config,
-	ts TokenStorage, singleCacheGroup *singleflight.Group) (*Client, error) {
-
+func InitFortnox(ctx context.Context, cfg *Config, oauthConfig *Oauth2Config, ts TokenStorage, singleCacheGroup *singleflight.Group) (*Client, error) {
 	existingToken := &oauth2.Token{}
 
 	tokenJSON, err := ts.GetToken(ctx)
@@ -89,11 +85,11 @@ func InitFortnox(
 			}
 
 			return nil, nil
+
 		})
 		if err != nil {
 			return nil, err
 		}
-
 	}
 
 	// get http fxClient with automatic oauth logic

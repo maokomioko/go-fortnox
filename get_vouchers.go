@@ -30,12 +30,13 @@ type GetVouchersRequest struct {
 }
 
 func (r GetVouchersRequest) NewGetVouchersQueryParams() *GetVouchersQueryParams {
-	return &GetVouchersQueryParams{
-		// Pagination: odata.NewPagination(),
-	}
+	return &GetVouchersQueryParams{}
 }
 
 type GetVouchersQueryParams struct {
+	//Page   *Page
+	//Limit  *Limit
+	//Offset *Offset
 }
 
 func (p GetVouchersQueryParams) ToURLValues() (url.Values, error) {

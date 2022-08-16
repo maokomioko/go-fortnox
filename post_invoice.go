@@ -30,9 +30,7 @@ type PostInvoiceRequest struct {
 }
 
 func (r PostInvoiceRequest) NewPostInvoiceQueryParams() *PostInvoiceQueryParams {
-	return &PostInvoiceQueryParams{
-		// Pagination: odata.NewPagination(),
-	}
+	return &PostInvoiceQueryParams{}
 }
 
 type PostInvoiceQueryParams struct {

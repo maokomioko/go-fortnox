@@ -13,7 +13,7 @@ const (
 )
 
 var (
-	ErrNoTokenInTokenStorage = errors.New("no token in token storage")
+	ErrNoTokenInTokenStorage = errors.New("fortnox: no token in token storage")
 )
 
 type TokenStorage interface {

@@ -30,15 +30,16 @@ type GetCustomersRequest struct {
 }
 
 func (r GetCustomersRequest) NewGetCustomersQueryParams() *GetCustomersQueryParams {
-	return &GetCustomersQueryParams{
-		// Pagination: odata.NewPagination(),
-	}
+	return &GetCustomersQueryParams{}
 }
 
 type GetCustomersQueryParams struct {
 	CustomerNumber string `schema:"customernumber"`
 	Name           string `schema:"name"`
 	Email          string `schema:"email"`
+	//Pagination     *Page
+	//Limit          *Limit
+	//Offset         *Offset
 }
 
 func (p GetCustomersQueryParams) ToURLValues() (url.Values, error) {
