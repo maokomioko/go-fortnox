@@ -20,12 +20,12 @@ type Invoice struct {
 	Booked                    null.Bool         `json:"Booked"`                           // If the invoice is bookkept. This value can be changed by using the action “bookkeep”.
 	Cancelled                 null.Bool         `json:"Cancelled,omitempty"`              // If the invoice is cancelled. This value can be changed by using the action “cancel”.
 	Credit                    string            `json:"Credit,omitempty"`                 // If the invoice is a credit invoice.
-	CreditInvoiceReference    int               `json:"CreditInvoiceReference,omitempty"` // Reference to the credit invoice, if one exits. The reference must be a document number for an existing credit invoice.
+	CreditInvoiceReference    IntIsh            `json:"CreditInvoiceReference,omitempty"` // Reference to the credit invoice, if one exits. The reference must be a document number for an existing credit invoice.
 	City                      string            `json:"City,omitempty"`                   // City for the invoice address.
 	Comments                  string            `json:"Comments"`                         // Comments of the invoice
-	ContractReference         int               `json:"ContractReference,omitempty"`      // Reference to the contract, if one exists.
-	ContributionPercent       float64           `json:"ContributionPercent,omitempty"`    // Invoice contribution in percent.
-	ContributionValue         float64           `json:"ContributionValue,omitempty"`      // Invoice contribution in amount.
+	ContractReference         IntIsh            `json:"ContractReference,omitempty"`      // Reference to the contract, if one exists.
+	ContributionPercent       FloatIsh          `json:"ContributionPercent,omitempty"`    // Invoice contribution in percent.
+	ContributionValue         FloatIsh          `json:"ContributionValue,omitempty"`      // Invoice contribution in amount.
 	Country                   string            `json:"Country"`                          // Country for the invoice address. Must be a name of an existing country.
 	CostCenter                string            `json:"CostCenter,omitempty"`             // Code of the cost center. The code must be of an existing cost center.
 	Currency                  string            `json:"Currency"`                         // Code of the currency. The code must be of an existing currency.
@@ -55,7 +55,7 @@ type Invoice struct {
 	InvoiceDate               Date              `json:"InvoiceDate"`                      // Invoice date. Must be a valid date according to our date format.
 	InvoicePeriodStart        Date              `json:"InvoicePeriodStart,omitempty"`     // Start date of the invoice period, only applicable for contract invoices.
 	InvoicePeriodEnd          Date              `json:"InvoicePeriodEnd,omitempty"`       // End date of the invoice period, only applicable for contract invoices.
-	InvoiceReference          int               `json:"InvoiceReference,omitempty"`
+	InvoiceReference          IntIsh            `json:"InvoiceReference,omitempty"`
 	InvoiceRows               InvoiceRows       `json:"InvoiceRows"`                  // The properties for the object in this array is listed in the table “Invoice Rows”.
 	InvoiceType               InvoiceType       `json:"InvoiceType"`                  // The type of invoice. Can be INVOICE AGREEMENTINVOICE INTRESTINVOICE SUMMARYINVOICE or CASHINVOICE.
 	Labels                    Labels            `json:"Labels"`                       // The properties for the object in this array is listed in the table “Labels”
@@ -65,8 +65,8 @@ type Invoice struct {
 	NotCompleted              bool              `json:"NotCompleted"`                 // If the invoice is set as not completed.
 	NoxFinans                 null.Bool         `json:"NoxFinans,omitempty"`          // If the invoice is managed by NoxFinans
 	OCR                       string            `json:"OCR"`                          // OCR number of the invoice.
-	OfferReference            int               `json:"OfferReference,omitempty"`     // Reference to the offer, if one exists.
-	OrderReference            int               `json:"OrderReference,omitempty"`     // Reference to the order, if one exists.
+	OfferReference            IntIsh            `json:"OfferReference,omitempty"`     // Reference to the offer, if one exists.
+	OrderReference            IntIsh            `json:"OrderReference,omitempty"`     // Reference to the order, if one exists.
 	OrganisationNumber        string            `json:"OrganisationNumber,omitempty"` // Organisation number of the customer for the invoice.
 	OurReference              string            `json:"OurReference"`                 // Our reference.
 	PaymentWay                PaymentWay        `json:"PaymentWay,omitempty"`         // CASH, CARD, AG
@@ -84,7 +84,7 @@ type Invoice struct {
 	TaxReduction              int               `json:"TaxReduction,omitempty"`       // The amount of tax reduction.
 	TaxReductionType          string            `json:"TaxReductionType,omitempty"`   // The type of tax reduction. ROT, RUT, GREEN, NONE.
 	TermsOfDelivery           string            `json:"TermsOfDelivery"`              // Code of the terms of delivery. The code must be of an existing terms of delivery.
-	TermsOfPayment            int               `json:"TermsOfPayment"`               // Code of the terms of payment. The code must be of an existing terms of payment.
+	TermsOfPayment            StringIsh         `json:"TermsOfPayment"`               // Code of the terms of payment. The code must be of an existing terms of payment.
 	TimeBasisReference        int               `json:"TimeBasisReference,omitempty"` // Reference to the time basis, if one exists.
 	Total                     float64           `json:"Total,omitempty"`              // The total amount of the invoice.
 	TotalVAT                  float64           `json:"TotalVAT,omitempty"`           // The total VAT amount of the invoice.
@@ -134,15 +134,15 @@ type EmailInformation struct {
 type InvoiceRows []InvoiceRow
 
 type InvoiceRow struct {
-	RowId               int     `json:"RowId,omitempty"`               // Row ID from Fortnox response
-	AccountNumber       int     `json:"AccountNumber"`                 // Account number. If not provided the predefined account will be used.
-	ArticleNumber       string  `json:"ArticleNumber"`                 // Article number.
-	ContributionPercent string  `json:"ContributionPercent,omitempty"` // Contribution Percent.
-	ContributionValue   string  `json:"ContributionValue,omitempty"`   // Contribution Value.
-	CostCenter          string  `json:"CostCenter,omitempty"`          // Code of the cost center for the row. The code must be of an existing cost center.
-	DeliveredQuantity   string  `json:"DeliveredQuantity"`             // Delivered quantity.
-	Description         string  `json:"Description"`                   // Row description.
-	Discount            float64 `json:"Discount"`                      // Discount amount.
+	RowId               int      `json:"RowId,omitempty"`               // Row ID from Fortnox response
+	AccountNumber       int      `json:"AccountNumber"`                 // Account number. If not provided the predefined account will be used.
+	ArticleNumber       string   `json:"ArticleNumber"`                 // Article number.
+	ContributionPercent FloatIsh `json:"ContributionPercent,omitempty"` // Contribution Percent.
+	ContributionValue   FloatIsh `json:"ContributionValue,omitempty"`   // Contribution Value.
+	CostCenter          string   `json:"CostCenter,omitempty"`          // Code of the cost center for the row. The code must be of an existing cost center.
+	DeliveredQuantity   string   `json:"DeliveredQuantity"`             // Delivered quantity.
+	Description         string   `json:"Description"`                   // Row description.
+	Discount            float64  `json:"Discount"`                      // Discount amount.
 	// 12 digits (for amount) / 5 digits (for percent)
 	DiscountType           string `json:"DiscountType"`           // The type of discount used for the row. Can be AMOUNT or PERCENT.
 	HouseWork              bool   `json:"HouseWork"`              // If the row is housework
