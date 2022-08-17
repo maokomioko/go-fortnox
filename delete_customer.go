@@ -102,20 +102,19 @@ func (r *DeleteCustomerRequest) URL() url.URL {
 	return r.client.GetEndpointURL("/customers/{{.CustomerNumber}}", r.PathParams())
 }
 
-func (r *DeleteCustomerRequest) Do() (DeleteCustomerResponseBody, error) {
+func (r *DeleteCustomerRequest) Do() (*DeleteCustomerResponseBody, error) {
 	// Create http request
 	req, err := r.client.NewRequest(nil, r.Method(), r.URL(), nil)
 	if err != nil {
-		return *r.NewResponseBody(), err
+		return r.NewResponseBody(), err
 	}
 
 	// Process query parameters
 	err = utils.AddQueryParamsToRequest(r.QueryParams(), req, false)
 	if err != nil {
-		return *r.NewResponseBody(), err
+		return r.NewResponseBody(), err
 	}
 
-	responseBody := r.NewResponseBody()
-	_, err = r.client.Do(req, responseBody)
-	return *responseBody, err
+	_, err = r.client.Do(req, nil)
+	return nil, err
 }
