@@ -3,6 +3,7 @@ package fortnox
 import (
 	"context"
 	"errors"
+	"time"
 
 	"github.com/go-redis/redis/v9"
 	"golang.org/x/oauth2"
@@ -21,16 +22,29 @@ type TokenStorage interface {
 	SetToken(ctx context.Context, token []byte) error
 }
 
-type tokenStorage struct {
-	rc *redis.Client
+type ResultIface interface {
+	Result() (string, error)
 }
 
-func NewTokenStorage(rc *redis.Client) TokenStorage {
-	return &tokenStorage{rc: rc}
+type ErrorIface interface {
+	Err() error
+}
+
+type StorageProvider interface {
+	Get(ctx context.Context, key string) ResultIface
+	Set(ctx context.Context, key string, value interface{}, expiration time.Duration) ErrorIface
+}
+
+type tokenStorage struct {
+	sp StorageProvider
+}
+
+func NewTokenStorage(sp StorageProvider) TokenStorage {
+	return &tokenStorage{sp: sp}
 }
 
 func (t *tokenStorage) GetToken(ctx context.Context) (string, error) {
-	tokenJSON, err := t.rc.Get(ctx, rdsTokenKey).Result()
+	tokenJSON, err := t.sp.Get(ctx, rdsTokenKey).Result()
 	if err != nil && err == redis.Nil {
 		return "", ErrNoTokenInTokenStorage
 	}
@@ -38,7 +52,7 @@ func (t *tokenStorage) GetToken(ctx context.Context) (string, error) {
 }
 
 func (t *tokenStorage) SetToken(ctx context.Context, token []byte) error {
-	return t.rc.Set(ctx, rdsTokenKey, token, 0).Err()
+	return t.sp.Set(ctx, rdsTokenKey, token, 0).Err()
 }
 
 type Oauth2Config struct {
