@@ -38,4 +38,3 @@ require (
 
 go 1.19
 
-replace github.com/gorilla/schema => github.com/omniboost/schema v1.1.1-0.20191030093734-a170fe1a7240
