@@ -1,4 +1,4 @@
-module github.com/omniboost/go-fortnox
+module github.com/maokomioko/go-fortnox
 
 require (
 	github.com/gin-gonic/gin v1.8.1

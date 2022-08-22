@@ -18,7 +18,7 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/omniboost/go-fortnox/utils"
+	"github.com/maokomioko/go-fortnox/utils"
 	"golang.org/x/oauth2"
 	"golang.org/x/sync/singleflight"
 )

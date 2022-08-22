@@ -1,6 +1,6 @@
 package fortnox
 
-import "github.com/omniboost/go-fortnox/utils"
+import "github.com/maokomioko/go-fortnox/utils"
 
 type Customers []Customer
 

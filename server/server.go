@@ -44,6 +44,7 @@ func addRoutes() http.Handler {
 	addTermsOfDelivery(r)
 	addPriceLists(r)
 	addTaxReductions(r)
+
 	addInvoices(r)
 	addCustomers(r)
 

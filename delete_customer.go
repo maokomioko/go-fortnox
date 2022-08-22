@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/omniboost/go-fortnox/utils"
+	"github.com/maokomioko/go-fortnox/utils"
 )
 
 func (c *Client) NewDeleteCustomerRequest() DeleteCustomerRequest {
