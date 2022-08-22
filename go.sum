@@ -49,8 +49,6 @@ github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421/go.mod h1:6dJ
 github.com/modern-go/reflect2 v1.0.2 h1:xBagoLtFs94CBntxluKeaWgTMpvLxC4ur3nMaC9Gz0M=
 github.com/modern-go/reflect2 v1.0.2/go.mod h1:yWuevngMOJpCy52FWWMvUC8ws7m/LJsjYzDa0/r8luk=
 github.com/nxadm/tail v1.4.8 h1:nPr65rt6Y5JFSKQO7qToXr7pePgD6Gwiw05lkbyAQTE=
-github.com/omniboost/go-fortnox v0.0.0-20220617081304-f8796aae9747 h1:3iXaTEimnwxvICTrpe5t7LHfSyJEGXgwV5mvaclOZjg=
-github.com/omniboost/go-fortnox v0.0.0-20220617081304-f8796aae9747/go.mod h1:385Zd6CbJxy8A8iRaVDMw4F10NDbFlzk+P42KXiWFP8=
 github.com/omniboost/schema v1.1.1-0.20191030093734-a170fe1a7240 h1:+yAcEWiT5FCKmD9HmerCkxSXRO/9uVQ88gQwvJbt6LA=
 github.com/omniboost/schema v1.1.1-0.20191030093734-a170fe1a7240/go.mod h1:9fjiXyATsFBndd1ZtrF4KJOs/VwBFmhX4N9yblkz+Jg=
 github.com/onsi/ginkgo v1.16.5 h1:8xi0RTUf59SOSfEtZMvwTvXYMzG4gV23XVHOZiXNtnE=

@@ -5,7 +5,7 @@ import (
 	"log"
 	"testing"
 
-	"github.com/omniboost/go-fortnox"
+	"github.com/maokomioko/go-fortnox"
 )
 
 func TestPostInvoice(t *testing.T) {
