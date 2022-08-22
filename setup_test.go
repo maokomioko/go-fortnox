@@ -7,7 +7,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/omniboost/go-fortnox"
+	"github.com/maokomioko/go-fortnox"
 	"golang.org/x/oauth2"
 )
 

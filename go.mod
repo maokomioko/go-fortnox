@@ -1,9 +1,10 @@
-module github.com/omniboost/go-fortnox
+module github.com/maokomioko/go-fortnox
 
 require (
 	github.com/gin-gonic/gin v1.8.1
 	github.com/go-redis/redis/v9 v9.0.0-beta.2
 	github.com/gorilla/schema v1.2.0
+	github.com/omniboost/go-fortnox v0.0.0-20220617081304-f8796aae9747
 	github.com/thats4fun/go-fortnox-sdk v0.0.0-20220805130231-2be3a94f2a93
 	golang.org/x/oauth2 v0.0.0-20220808172628-8227340efae7
 	golang.org/x/sync v0.0.0-20220722155255-886fb9371eb4
