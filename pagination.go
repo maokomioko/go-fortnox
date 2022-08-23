@@ -1,5 +1,7 @@
 package fortnox
 
-type Page struct {
-	Page int `json:"page"`
+type Pagination struct {
+	Limit  int `schema:"limit"`
+	Offset int `schema:"offset"`
+	Page   int `schema:"page"`
 }

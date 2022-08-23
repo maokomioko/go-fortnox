@@ -34,9 +34,7 @@ func (r GetCustomerRequest) NewGetCustomerQueryParams() *GetCustomerQueryParams 
 }
 
 type GetCustomerQueryParams struct {
-	//Page   *Page
-	//Limit  *Limit
-	//Offset *Offset
+	Pagination Pagination
 }
 
 func (p GetCustomerQueryParams) ToURLValues() (url.Values, error) {
@@ -116,7 +114,7 @@ func (r *GetCustomerRequest) Do() (GetCustomerResponseBody, error) {
 	}
 
 	// Process query parameters
-	err = utils.AddQueryParamsToRequest(r.QueryParams(), req, false)
+	err = utils.AddQueryParamsToRequest(r.QueryParams(), req, true)
 	if err != nil {
 		return *r.NewResponseBody(), err
 	}

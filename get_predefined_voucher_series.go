@@ -34,9 +34,7 @@ func (r GetPredefinedVoucherSeriesRequest) NewGetPredefinedVoucherSeriesQueryPar
 }
 
 type GetPredefinedVoucherSeriesQueryParams struct {
-	//Page   *Page
-	//Limit  *Limit
-	//Offset *Offset
+	Pagination Pagination
 }
 
 func (p GetPredefinedVoucherSeriesQueryParams) ToURLValues() (url.Values, error) {
@@ -117,7 +115,7 @@ func (r *GetPredefinedVoucherSeriesRequest) Do() (GetPredefinedVoucherSeriesResp
 	}
 
 	// Process query parameters
-	err = utils.AddQueryParamsToRequest(r.QueryParams(), req, false)
+	err = utils.AddQueryParamsToRequest(r.QueryParams(), req, true)
 	if err != nil {
 		return *r.NewResponseBody(), err
 	}
