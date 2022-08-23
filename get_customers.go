@@ -37,9 +37,8 @@ type GetCustomersQueryParams struct {
 	CustomerNumber string `schema:"customernumber"`
 	Name           string `schema:"name"`
 	Email          string `schema:"email"`
-	//Pagination     *Page
-	//Limit          *Limit
-	//Offset         *Offset
+
+	Pagination Pagination
 }
 
 func (p GetCustomersQueryParams) ToURLValues() (url.Values, error) {
@@ -116,7 +115,7 @@ func (r *GetCustomersRequest) Do() (GetCustomersResponseBody, error) {
 	}
 
 	// Process query parameters
-	err = utils.AddQueryParamsToRequest(r.QueryParams(), req, false)
+	err = utils.AddQueryParamsToRequest(r.QueryParams(), req, true)
 	if err != nil {
 		return *r.NewResponseBody(), err
 	}

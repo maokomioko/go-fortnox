@@ -34,9 +34,7 @@ func (r GetAccountsRequest) NewGetAccountsQueryParams() *GetAccountsQueryParams 
 }
 
 type GetAccountsQueryParams struct {
-	//Page   *Page
-	//Limit  *Limit
-	//Offset *Offset
+	Pagination Pagination
 }
 
 func (p GetAccountsQueryParams) ToURLValues() (url.Values, error) {
@@ -113,7 +111,7 @@ func (r *GetAccountsRequest) Do() (GetAccountsResponseBody, error) {
 	}
 
 	// Process query parameters
-	err = utils.AddQueryParamsToRequest(r.QueryParams(), req, false)
+	err = utils.AddQueryParamsToRequest(r.QueryParams(), req, true)
 	if err != nil {
 		return *r.NewResponseBody(), err
 	}
