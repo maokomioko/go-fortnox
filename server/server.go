@@ -223,24 +223,6 @@ func addInvoices(r *gin.Engine) {
 			},
 		})
 	})
-	// TODO: do we need this one?
-	r.PUT("/invoices/:id/print", func(c *gin.Context) {
-		id := c.Param("id")
-		for _, v := range invoices {
-			if v.DocumentNumber == id {
-				pdfBts := []byte(v.WayOfDelivery)
-				c.String(http.StatusOK, "%s", pdfBts)
-				return
-			}
-		}
-		c.JSON(http.StatusNotFound, gin.H{
-			"ErrorInformation": gin.H{
-				"error":   http.StatusNotFound,
-				"message": "Kan inte hitta kunden.",
-				"code":    2000433,
-			},
-		})
-	})
 	r.GET("/invoices/:id/einvoice", func(c *gin.Context) {
 		id := c.Param("id")
 		for _, v := range invoices {
