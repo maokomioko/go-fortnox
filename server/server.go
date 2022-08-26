@@ -87,9 +87,9 @@ func addInvoices(r *gin.Engine) {
 			return
 		}
 
-		for _, v := range invoices {
-			if v.DocumentNumber == id {
-				v = p.Invoice
+		for i := range invoices {
+			if invoices[i].DocumentNumber == id {
+				invoices[i] = p.Invoice
 				c.JSON(http.StatusOK, gin.H{
 					"Invoice": p.Invoice,
 				})
@@ -127,31 +127,13 @@ func addInvoices(r *gin.Engine) {
 			"Invoice": p.Invoice,
 		})
 	})
-	r.GET("/invoices/:id/eprint", func(c *gin.Context) {
-		id := c.Param("id")
-		for _, v := range invoices {
-			if v.DocumentNumber == id {
-				c.JSON(http.StatusOK, gin.H{
-					"Invoice": v,
-				})
-				return
-			}
-		}
-		c.JSON(http.StatusNotFound, gin.H{
-			"ErrorInformation": gin.H{
-				"error":   http.StatusNotFound,
-				"message": "Kan inte hitta kunden.",
-				"code":    2000433,
-			},
-		})
-	})
 	r.PUT("/invoices/:id/externalprint", func(c *gin.Context) {
 		id := c.Param("id")
-		for _, v := range invoices {
-			if v.DocumentNumber == id {
-				v.Sent = null.BoolFrom(true)
+		for i := range invoices {
+			if invoices[i].DocumentNumber == id {
+				invoices[i].Sent = null.BoolFrom(true)
 				c.JSON(http.StatusOK, gin.H{
-					"Invoice": v,
+					"Invoice": invoices[i],
 				})
 				return
 			}
@@ -166,11 +148,11 @@ func addInvoices(r *gin.Engine) {
 	})
 	r.PUT("/invoices/:id/bookkeep", func(c *gin.Context) {
 		id := c.Param("id")
-		for _, v := range invoices {
-			if v.DocumentNumber == id {
-				v.Booked = null.BoolFrom(true)
+		for i := range invoices {
+			if invoices[i].DocumentNumber == id {
+				invoices[i].Booked = null.BoolFrom(true)
 				c.JSON(http.StatusOK, gin.H{
-					"Invoice": v,
+					"Invoice": invoices[i],
 				})
 				return
 			}
@@ -185,11 +167,11 @@ func addInvoices(r *gin.Engine) {
 	})
 	r.PUT("/invoices/:id/cancel", func(c *gin.Context) {
 		id := c.Param("id")
-		for _, v := range invoices {
-			if v.DocumentNumber == id {
-				v.Cancelled = null.BoolFrom(true)
+		for i := range invoices {
+			if invoices[i].DocumentNumber == id {
+				invoices[i].Cancelled = null.BoolFrom(true)
 				c.JSON(http.StatusOK, gin.H{
-					"Invoice": v,
+					"Invoice": invoices[i],
 				})
 				return
 			}
@@ -204,12 +186,12 @@ func addInvoices(r *gin.Engine) {
 	})
 	r.PUT("/invoices/:id/credit", func(c *gin.Context) {
 		id := c.Param("id")
-		for _, v := range invoices {
-			if v.DocumentNumber == id {
-				v.Credit = "1"
-				v.CreditInvoiceReference = fortnox.IntIsh(2)
+		for i := range invoices {
+			if invoices[i].DocumentNumber == id {
+				invoices[i].Credit = "1"
+				invoices[i].CreditInvoiceReference = fortnox.IntIsh(2)
 				c.JSON(http.StatusOK, gin.H{
-					"Invoice": v,
+					"Invoice": invoices[i],
 				})
 				return
 			}
@@ -224,11 +206,11 @@ func addInvoices(r *gin.Engine) {
 	})
 	r.PUT("/invoices/:id/warehouseready", func(c *gin.Context) {
 		id := c.Param("id")
-		for _, v := range invoices {
-			if v.DocumentNumber == id {
-				v.NotCompleted = false
+		for i := range invoices {
+			if invoices[i].DocumentNumber == id {
+				invoices[i].NotCompleted = false
 				c.JSON(http.StatusOK, gin.H{
-					"Invoice": v,
+					"Invoice": invoices[i],
 				})
 				return
 			}
@@ -241,6 +223,7 @@ func addInvoices(r *gin.Engine) {
 			},
 		})
 	})
+	// TODO: do we need this one?
 	r.PUT("/invoices/:id/print", func(c *gin.Context) {
 		id := c.Param("id")
 		for _, v := range invoices {
@@ -259,6 +242,24 @@ func addInvoices(r *gin.Engine) {
 		})
 	})
 	r.GET("/invoices/:id/einvoice", func(c *gin.Context) {
+		id := c.Param("id")
+		for _, v := range invoices {
+			if v.DocumentNumber == id {
+				c.JSON(http.StatusOK, gin.H{
+					"Invoice": v,
+				})
+				return
+			}
+		}
+		c.JSON(http.StatusNotFound, gin.H{
+			"ErrorInformation": gin.H{
+				"error":   http.StatusNotFound,
+				"message": "Kan inte hitta kunden.",
+				"code":    2000433,
+			},
+		})
+	})
+	r.GET("/invoices/:id/eprint", func(c *gin.Context) {
 		id := c.Param("id")
 		for _, v := range invoices {
 			if v.DocumentNumber == id {
@@ -337,9 +338,9 @@ func addCustomers(r *gin.Engine) {
 			return
 		}
 
-		for _, v := range customers {
-			if v.CustomerNumber == id {
-				v = p.Customer
+		for i := range customers {
+			if customers[i].CustomerNumber == id {
+				customers[i] = p.Customer
 				c.JSON(http.StatusOK, gin.H{
 					"Customer": p.Customer,
 				})
