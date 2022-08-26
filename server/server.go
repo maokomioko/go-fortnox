@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	"gopkg.in/guregu/null.v3"
 
 	"github.com/maokomioko/go-fortnox"
 )
@@ -124,6 +125,155 @@ func addInvoices(r *gin.Engine) {
 		invoices = append(invoices, p.Invoice)
 		c.JSON(http.StatusOK, gin.H{
 			"Invoice": p.Invoice,
+		})
+	})
+	r.GET("/invoices/:id/eprint", func(c *gin.Context) {
+		id := c.Param("id")
+		for _, v := range invoices {
+			if v.DocumentNumber == id {
+				c.JSON(http.StatusOK, gin.H{
+					"Invoice": v,
+				})
+				return
+			}
+		}
+		c.JSON(http.StatusNotFound, gin.H{
+			"ErrorInformation": gin.H{
+				"error":   http.StatusNotFound,
+				"message": "Kan inte hitta kunden.",
+				"code":    2000433,
+			},
+		})
+	})
+	r.PUT("/invoices/:id/externalprint", func(c *gin.Context) {
+		id := c.Param("id")
+		for _, v := range invoices {
+			if v.DocumentNumber == id {
+				v.Sent = null.BoolFrom(true)
+				c.JSON(http.StatusOK, gin.H{
+					"Invoice": v,
+				})
+				return
+			}
+		}
+		c.JSON(http.StatusNotFound, gin.H{
+			"ErrorInformation": gin.H{
+				"error":   http.StatusNotFound,
+				"message": "Kan inte hitta kunden.",
+				"code":    2000433,
+			},
+		})
+	})
+	r.PUT("/invoices/:id/bookkeep", func(c *gin.Context) {
+		id := c.Param("id")
+		for _, v := range invoices {
+			if v.DocumentNumber == id {
+				v.Booked = null.BoolFrom(true)
+				c.JSON(http.StatusOK, gin.H{
+					"Invoice": v,
+				})
+				return
+			}
+		}
+		c.JSON(http.StatusNotFound, gin.H{
+			"ErrorInformation": gin.H{
+				"error":   http.StatusNotFound,
+				"message": "Kan inte hitta kunden.",
+				"code":    2000433,
+			},
+		})
+	})
+	r.PUT("/invoices/:id/cancel", func(c *gin.Context) {
+		id := c.Param("id")
+		for _, v := range invoices {
+			if v.DocumentNumber == id {
+				v.Cancelled = null.BoolFrom(true)
+				c.JSON(http.StatusOK, gin.H{
+					"Invoice": v,
+				})
+				return
+			}
+		}
+		c.JSON(http.StatusNotFound, gin.H{
+			"ErrorInformation": gin.H{
+				"error":   http.StatusNotFound,
+				"message": "Kan inte hitta kunden.",
+				"code":    2000433,
+			},
+		})
+	})
+	r.PUT("/invoices/:id/credit", func(c *gin.Context) {
+		id := c.Param("id")
+		for _, v := range invoices {
+			if v.DocumentNumber == id {
+				v.Credit = "1"
+				v.CreditInvoiceReference = fortnox.IntIsh(2)
+				c.JSON(http.StatusOK, gin.H{
+					"Invoice": v,
+				})
+				return
+			}
+		}
+		c.JSON(http.StatusNotFound, gin.H{
+			"ErrorInformation": gin.H{
+				"error":   http.StatusNotFound,
+				"message": "Kan inte hitta kunden.",
+				"code":    2000433,
+			},
+		})
+	})
+	r.PUT("/invoices/:id/warehouseready", func(c *gin.Context) {
+		id := c.Param("id")
+		for _, v := range invoices {
+			if v.DocumentNumber == id {
+				v.NotCompleted = false
+				c.JSON(http.StatusOK, gin.H{
+					"Invoice": v,
+				})
+				return
+			}
+		}
+		c.JSON(http.StatusNotFound, gin.H{
+			"ErrorInformation": gin.H{
+				"error":   http.StatusNotFound,
+				"message": "Kan inte hitta kunden.",
+				"code":    2000433,
+			},
+		})
+	})
+	r.PUT("/invoices/:id/print", func(c *gin.Context) {
+		id := c.Param("id")
+		for _, v := range invoices {
+			if v.DocumentNumber == id {
+				pdfBts := []byte(v.WayOfDelivery)
+				c.String(http.StatusOK, "%s", pdfBts)
+				return
+			}
+		}
+		c.JSON(http.StatusNotFound, gin.H{
+			"ErrorInformation": gin.H{
+				"error":   http.StatusNotFound,
+				"message": "Kan inte hitta kunden.",
+				"code":    2000433,
+			},
+		})
+	})
+	r.GET("/invoices/:id/einvoice", func(c *gin.Context) {
+		id := c.Param("id")
+		for _, v := range invoices {
+			if v.DocumentNumber == id {
+				c.JSON(http.StatusOK, gin.H{
+					"Invoice": v,
+				})
+				return
+			}
+		}
+		c.JSON(http.StatusNotFound, gin.H{
+			"ErrorInformation": gin.H{
+				"error":   http.StatusNotFound,
+				"message": "Kan inte hitta kunden.",
+				"code":    2000433,
+			},
 		})
 	})
 }
